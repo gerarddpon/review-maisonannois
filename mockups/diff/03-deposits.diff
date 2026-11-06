@@ -1,0 +1,165 @@
+PATCH DOCUMENT — 03-deposits
+==============================================================================
+
+Maquette : screens/03-deposits.before.html  →  screens/03-deposits.after.html
+Chaque bloc ci-dessous est le fragment RÉEL de production remplacé par son
+fragment corrigé. Rien d'autre n'est touché : le reste du DOM est identique.
+
+
+── 1. [S-01] Un seul <main>, un seul #contenu ──────────────────────────────
+
+   AVANT
+   <main id="contenu" class="min-w-0">
+
+   APRÈS
+   <div class="min-w-0" role="none">
+
+   AVANT
+   </main>
+
+   APRÈS
+   </div>
+
+── 2. [—] Périmètre d'application du correctif CSS ──────────────────────
+
+   AVANT
+   <div class="lg:grid lg:grid-cols-[236px_minmax(0,1fr)] lg:gap-10">
+
+   APRÈS
+   <div data-scope="account" class="lg:grid lg:grid-cols-[236px_minmax(0,1fr)] lg:gap-10">
+
+── 3. [S-04] Le contrôle « Confort de lecture » existe sur mobile ──────────
+
+   AVANT
+   <div class="mx-auto flex h-9 w-full max-w-[1440px] items-center justify-between gap-4 px-[var(--gutter)] text-caption">
+   <p class="truncate">
+
+   APRÈS
+   <div class="mx-auto flex h-9 w-full max-w-[1440px] items-center justify-between gap-2 px-[var(--gutter)] text-caption">
+   <p class="truncate min-w-0 flex-1">
+
+   AVANT
+   <div class="hidden sm:block">
+
+   APRÈS
+   <div class="block">
+
+── 4. [C-03] « Dû » devient « À régler au retrait » ────────────────────────
+
+   AVANT
+   <h2 class="font-serif text-h3 leading-tight text-ardoise-900">Dû</h2>
+
+   APRÈS
+   <h2 class="font-serif text-h3 leading-tight text-ardoise-900">À régler au retrait</h2>
+
+   AVANT
+   <h2 class="font-serif text-h3 leading-tight text-ardoise-900">Rendu</h2>
+
+   APRÈS
+   <h2 class="font-serif text-h3 leading-tight text-ardoise-900">Consignes remboursées</h2>
+
+── 5. [S-02] Barre de bas de page : 87 px → 61 px, contenu contextuel ──────
+
+   AVANT
+   <div class="fixed inset-x-0 bottom-0 z-40 border-t border-lin-300 bg-lin-50 pb-[env(safe-area-inset-bottom)] lg:hidden" role="region" aria-label="Actions rapides">
+   <div class="flex items-stretch gap-2 px-3 py-2">
+   <a href="tel:0139471212" aria-label="Appeler la boutique au 01 39 47 12 12" class="flex min-h-12 flex-1 items-center justify-center gap-2 rounded-[var(--radius-pill)] border border-ardoise-900/25 bg-white px-3 text-small font-semibold text-ardoise-900 transition-colors hover:border-ardoise-900">
+
+   APRÈS
+   <div class="account-context-bar" role="region" aria-label="Actions du compte">
+   <a href="tel:0139471212" class="flex min-h-11 flex-1 items-center justify-center gap-2 rounded-[var(--radius-pill)] border border-ardoise-900/25 bg-white px-3 text-small font-semibold text-ardoise-900">
+
+   AVANT
+   <path d="M6.5 3.5h3l1.5 4-2 1.5c.8 2.5 2.5 4.2 5 5l1.5-2 4 1.5v3c0 1.4-1.1 2.5-2.5 2.5C10 19 5 14 4 6a2.5 2.5 0 0 1 2.5-2.5Z">
+   </path>
+
+   APRÈS
+   <path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.58 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .57 3.6 1 1 0 0 1-.25 1z"/>
+
+   AVANT
+   <span class="hidden whitespace-nowrap tabular-nums sm:inline">01 39 47 12 12</span>
+   </a>
+   <button type="button" class="flex min-h-12 flex-1 items-center justify-center gap-2 rounded-[var(--radius-pill)] px-3 text-small font-semibold transition-colors border border-ardoise-900/25 bg-white text-ardoise-900 hover:border-ardoise-900">
+   <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+   <path d="M5 7.5h14l-1.2 12.5H6.2L5 7.5Z">
+   </path>
+   <path d="M9 7.5V6a3 3 0 0 1 6 0v1.5">
+   </path>
+   </svg>
+   <span>Panier</span>
+   <span aria-hidden="true" class="flex min-w-5 items-center justify-center rounded-full px-1 text-caption font-bold tabular-nums bg-lin-200 text-ardoise-700">0</span>
+   <span class="sr-only">, vide</span>
+   </button>
+   </div>
+   <p class="pb-1.5 text-center text-caption leading-tight text-ardoise-500">Retrait à Sannois</p>
+
+   APRÈS
+   </a>
+   <a href="/account/orders/CMD-2452" class="flex min-h-11 flex-1 items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-ardoise-900 px-3 text-small font-semibold text-lin-50">
+   <span class="tabular-nums">53,26&nbsp;€</span>
+   <span class="font-normal">à régler</span>
+   </a>
+
+── 6. [S-05] Navigation groupée en 5 sections ──────────────────────────────
+
+   AVANT
+   <ul class="-mx-[var(--gutter)] flex gap-1 overflow-x-auto px-[var(--gutter)] pb-2 lg:mx-0 lg:flex-col lg:gap-0.5 lg:overflow-visible lg:px-0 lg:pb-0 lg:sticky lg:top-6">
+   <li class="shrink-0">
+   <a class="block whitespace-nowrap rounded-[var(--radius-md)] px-3 py-2 text-small transition-colors lg:whitespace-normal text-ardoise-700 hover:bg-lin-100 hover:text-ardoise-900" href="/account">Vue d'ensemble</a>
+   </li>
+   <li class="shrink-0">
+   <a class="block whitespace-nowrap rounded-[var(--radius-md)] px-3 py-2 text-small transition-colors lg:whitespace-normal text-ardoise-700 hover:bg-lin-100 hover:text-ardoise-900" href="/account/orders">Commandes</a>
+   </li>
+   <li class="shrink-0">
+   <a class="block whitespace-nowrap rounded-[var(--radius-md)] px-3 py-2 text-small transition-colors lg:whitespace-normal text-ardoise-700 hover:bg-lin-100 hover:text-ardoise-900" href="/account/subscriptions">Abonnements</a>
+   </li>
+   <li class="shrink-0">
+   <a class="block whitespace-nowrap rounded-[var(--radius-md)] px-3 py-2 text-small transition-colors lg:whitespace-normal text-ardoise-700 hover:bg-lin-100 hover:text-ardoise-900" href="/account/documents">Factures</a>
+   </li>
+   <li class="shrink-0">
+   <a class="block whitespace-nowrap rounded-[var(--radius-md)] px-3 py-2 text-small transition-colors lg:whitespace-normal text-ardoise-700 hover:bg-lin-100 hover:text-ardoise-900" href="/account/payments">Paiements</a>
+   </li>
+         … (tronqué)
+
+   APRÈS
+   <button type="button" class="account-nav-drawer-trigger mb-4 flex min-h-11 w-full items-center justify-between gap-2 rounded-[var(--radius-md)] border border-lin-300 bg-white px-3.5 text-small font-semibold text-ardoise-900 lg:hidden" aria-expanded="false" aria-controls="account-nav-drawer">
+   <span>Menu du compte</span>
+   <span aria-hidden="true">☰</span>
+   </button>
+   <div id="account-nav-drawer" class="account-nav-drawer hidden lg:hidden">
+   <div class="account-nav-drawer__head mb-4 flex items-center justify-between">
+   <p class="overline">Espace client</p>
+   <button type="button" class="flex size-11 items-center justify-center rounded-full border border-lin-300 text-ardoise-900" aria-label="Fermer le menu">✕</button>
+   </div>
+   <ul class="account-nav-list">
+   <li>
+   <p class="account-nav-group-title">Commander</p>
+   <ul>
+   <li>
+   <a class="account-nav-link" href="/account" aria-current="page">Vue d'ensemble</a>
+   </li>
+   <li>
+   <a class="account-nav-link" href="/account/orders">Commandes</a>
+   </li>
+   <li>
+   <a class="account-nav-link" href="/account/subscriptions">Abonnements</a>
+   </li>
+   </ul>
+   </li>
+   <li>
+   <p class="account-nav-group-title">Argent</p>
+   <ul>
+   <li>
+   <a class="account-nav-link" href="/account/documents">Factures</a>
+   </li>
+   <li>
+   <a class="account-nav-link" href="/account/payments">Paiements</a>
+   </li>
+   <li>
+   <a class="account-nav-link" href="/account/deposits">Arrhes & consignes</a>
+   </li>
+   </ul>
+   </li>
+   <li>
+   <p c
+         … (tronqué)

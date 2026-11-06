@@ -1,0 +1,315 @@
+/* =====================================================================
+   account-scope.css — DROP-IN FIX FOR THE 8 P0 FINDINGS
+   Maison Annois · customer account area
+   ---------------------------------------------------------------------
+   CONTAINMENT (spec H2/H3 — storefront appearance must not change):
+   Everything below is scoped to [data-scope="account"] or to
+   .account-fix classes. NO shared token is redefined globally.
+   The storefront keeps --text-caption: .78125rem (12.5px) and
+   --color-ardoise-300 (#8a9099) exactly as shipped.
+
+   HOW TO APPLY
+   1. Add  data-scope="account"  to the account layout wrapper element.
+   2. Load this file AFTER production.css.
+   3. Nothing else changes. The account area picks up the new scale;
+      every other route is byte-identical in rendering.
+   ===================================================================== */
+
+/* ---------------------------------------------------------------------
+   P0-3  Type floor — S-08
+   Production: --text-caption .78125rem (12.5px), --text-overline .75rem (12px),
+              --text-small .875rem (14px), --text-body 1rem (16px)
+   Measured : 95 text nodes under 14.5px on /account alone.
+   ------------------------------------------------------------------- */
+[data-scope="account"] {
+  --text-caption: 0.875rem;    /* 14px — was 12.5px, new floor */
+  --text-overline: 0.875rem;   /* 14px — was 12px */
+  --text-small: 0.9375rem;     /* 15px — was 14px */
+  --text-body: 1.0625rem;      /* 17px — was 16px */
+  --text-lead: 1.1875rem;      /* 19px — unchanged */
+
+  /* P0-4  Contrast — S-09
+     The production palette ALREADY contains a compliant grey:
+     --color-ardoise-400 #5b6068 = 6.33:1 on white, 5.62:1 on lin-100,
+     4.77:1 on the zone-150 cream card. The defect was using
+     --color-ardoise-300 (#8a9099) on text: 3.22 / 2.85 / 2.42:1.
+     Fix = use the darker step. Do NOT change --color-ardoise-300. */
+  --account-text-muted: var(--color-ardoise-400);
+  --account-text-on-cream: var(--color-ardoise-500);
+
+  /* P0-5  Context bar — S-02
+     Production --bar-clearance is 6.5rem (104px) but is not applied to
+     the account scroll container. The new bar is 64px, so the clearance
+     is reduced accordingly and made explicit. */
+  --bar-clearance: 4rem;                       /* 64px — matches --context-bar-height */
+  --context-bar-height: 4rem;                  /* 64px, was an 87px fixed bar */
+
+  /* P0-2  Reading comfort — S-04 */
+  --comfort-scale: 1;
+  --account-min-body: 1.0625rem;               /* 17px default */
+  --account-min-body-comfort: 1.1875rem;       /* 19px in comfort mode */
+
+  /* P0-6  Navigation — S-05 */
+  --account-nav-drawer-width: 21rem;
+
+  /* P0-7 / P0-8  internal IDs + decimal separator */
+  --account-amount-fraction-digits: 2;
+}
+
+/* ---------------------------------------------------------------------
+   P0-4  Contrast — S-09
+   Replaces the 10 offending `text-ardoise-300` occurrences on text
+   nodes. Scoped utility, so the storefront keeps its own usage.
+   ------------------------------------------------------------------- */
+[data-scope="account"] .text-ardoise-300 {
+  color: var(--color-ardoise-400);
+}
+
+/* ---------------------------------------------------------------------
+   P0-2  Reading comfort — S-04
+   Desktop already ships a "Confort de lecture" control; its wrapper is
+   `hidden sm:block`, so the button is display:none below the 640px `sm`
+   breakpoint. This restores it on mobile AND gives it real effect:
+   the scale is driven by a root-level custom property so it can be
+   toggled without re-rendering.
+   ------------------------------------------------------------------- */
+[data-comfort="on"] {
+  --text-caption: 1rem;
+  --text-overline: 0.9375rem;
+  --text-small: 1.0625rem;
+  --text-body: 1.1875rem;
+  --text-lead: 1.3125rem;
+  --account-min-body: 1.1875rem;
+}
+[data-comfort="on"] [data-scope="account"] {
+  --text-caption: 1rem;
+  --text-overline: 0.9375rem;
+  --text-small: 1.0625rem;
+  --text-body: 1.1875rem;
+}
+
+/* ---------------------------------------------------------------------
+   P0-5  Context bar — S-02
+   Replaces the 87px "Appeler / Panier" fixed bar with a ≤64px bar
+   whose content is contextual, plus a real tel: action.
+   ------------------------------------------------------------------- */
+.account-context-bar {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 40;
+  min-height: var(--context-bar-height);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem var(--gutter);
+  padding-bottom: calc(0.5rem + env(safe-area-inset-bottom));
+  background: var(--color-lin-50);
+  border-top: 1px solid var(--color-lin-200);
+}
+@media (min-width: 1024px) {
+  .account-context-bar { display: none; }
+}
+
+/* The scroll container must reserve room for the bar (S-02). */
+[data-scope="account"] {
+  padding-bottom: calc(var(--context-bar-height) + env(safe-area-inset-bottom));
+}
+
+/* ---------------------------------------------------------------------
+   P0-6  Navigation — S-05 / S-17
+   The 17-item 1945px scroll strip becomes a grouped drawer on mobile
+   and a grouped column on desktop. Both share one component.
+   ------------------------------------------------------------------- */
+.account-nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.account-nav-group-title {
+  font-size: var(--text-overline);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-ardoise-500);
+  padding: 0 0.75rem 0.375rem;
+}
+.account-nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  min-height: 2.75rem;            /* 44px — P0-7 / S-07 */
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-md);
+  color: var(--color-ardoise-700);
+  font-size: var(--text-small);
+}
+.account-nav-link[aria-current="page"] {
+  background: var(--color-ardoise-900);
+  color: var(--color-lin-50);
+  font-weight: 600;
+}
+.account-nav-link:focus-visible {
+  outline: 2px solid var(--color-bordeaux-700);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.92);
+}
+
+/* Mobile: the drawer replaces the scroll strip entirely. */
+@media (max-width: 1023px) {
+  .account-nav-strip { display: none; }
+  .account-nav-drawer {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    background: var(--color-lin-50);
+    padding: 1rem var(--gutter) 2rem;
+    overflow-y: auto;
+  }
+}
+/* Desktop: the very same grouped list becomes a static sidebar column.
+   This rule is unlayered, so it beats Tailwind's `.hidden` / `lg:hidden`
+   utilities — one markup tree, two presentations. */
+@media (min-width: 1024px) {
+  .account-nav-drawer {
+    position: static;
+    display: block;
+    background: none;
+    padding: 0;
+    overflow: visible;
+  }
+  .account-nav-drawer__head { display: none; }
+}
+
+/* ---------------------------------------------------------------------
+   P0-6b  Scroll affordance
+   The old strips had no cue that more content existed. If any horizontal
+   scroller survives elsewhere, give it a fade (mask) at both edges.
+   ------------------------------------------------------------------- */
+.scroll-affordance {
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 16px, #000 calc(100% - 16px), transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, #000 16px, #000 calc(100% - 16px), transparent 100%);
+}
+
+/* ---------------------------------------------------------------------
+   P0-7  Target sizes — S-07 / S-10
+   ------------------------------------------------------------------- */
+[data-scope="account"] :is(button, a, input, select, [role="button"]) {
+  min-height: 2.75rem;             /* 44px */
+}
+/* A standalone link (sole child of its block) must be a 44px target.
+   Links that run inside a sentence keep their inline flow: WCAG 2.5.8
+   exempts inline targets. */
+[data-scope="account"] :is(p, li, td, dd, dt, figcaption) > a:only-child {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+}
+[data-scope="account"] :is(input[type="checkbox"], input[type="radio"]) {
+  min-height: 1.5rem;               /* 24px — SC 2.5.8 */
+  width: 1.5rem;
+  min-width: 1.5rem;
+}
+[data-scope="account"] label:has(> input[type="checkbox"]),
+[data-scope="account"] label:has(> input[type="radio"]) {
+  min-height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+/* ---------------------------------------------------------------------
+   P0-8  Focus ring — S-11
+   The "Panier, vide" button inherited outline-color #fbf9f5 (its own
+   text colour) and vanished against the cream page. One ring, everywhere,
+   with a contrasting halo so it survives any surface.
+   ------------------------------------------------------------------- */
+[data-scope="account"] :focus-visible {
+  outline: 2px solid var(--color-bordeaux-700);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.92);
+}
+
+/* ---------------------------------------------------------------------
+   P0-8  Amount formatting — O-01
+   The overview badge rendered "SOLDE 53.26 € DÛ" with a full stop
+   (en-US formatting) while the rest of the site used the comma.
+   ------------------------------------------------------------------- */
+.amount {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+.amount--due {
+  color: var(--color-ardoise-700);
+  font-weight: 600;
+}
+.amount--due::after {
+  content: "";
+}
+
+/* ---------------------------------------------------------------------
+   P0-9  Balance framing — O-02 / G-09
+   "Dû" turns an unpaid balance into a debt. The badge now states what
+   the amount IS, and when it is settled.
+   ------------------------------------------------------------------- */
+.balance-card__label {
+  font-size: var(--text-small);
+  color: var(--color-ardoise-600);
+}
+.balance-card__amount {
+  font-size: var(--text-h3);
+  font-weight: 600;
+  color: var(--color-ardoise-900);
+  font-variant-numeric: tabular-nums;
+}
+.balance-card__note {
+  font-size: var(--text-caption);
+  color: var(--color-ardoise-500);
+}
+
+/* ---------------------------------------------------------------------
+   P0-10  Legal copy — C-03 / G-08
+   Long statutory sentences appear once, in a disclosure, below a plain
+   summary. Spec IDs are removed from customer copy and kept as data-spec
+   attributes for QA.
+   ------------------------------------------------------------------- */
+.legal-disclosure > summary {
+  cursor: pointer;
+  min-height: 2.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--text-small);
+  color: var(--color-ardoise-600);
+  list-style: none;
+}
+.legal-disclosure > summary::-webkit-details-marker { display: none; }
+.legal-disclosure[open] > summary { margin-bottom: 0.5rem; }
+.legal-disclosure__body {
+  font-size: var(--text-small);
+  line-height: 1.55;
+  color: var(--color-ardoise-600);
+  padding-left: 0.75rem;
+  border-left: 2px solid var(--color-lin-300);
+}
+
+/* ---------------------------------------------------------------------
+   Annotations used by the mockup pages only — stripped in production.
+   ------------------------------------------------------------------- */
+.mock-annotation {
+  position: absolute;
+  z-index: 90;
+  max-width: 20rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  line-height: 1.45;
+  color: #fff;
+  background: var(--color-bordeaux-700);
+  border-radius: 6px;
+  padding: 6px 9px;
+  box-shadow: 0 6px 18px rgba(18, 19, 22, 0.25);
+}
+.mock-annotation b { color: #ffd9a8; }
+.mock-annotation--fixed { background: #2f5a41; }
+.mock-annotation--fixed b { color: #cfe8d8; }

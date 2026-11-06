@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maison Annois — Espace client · Maquettes avant / après · 8 corrections P0</title>
+<style>
+  :root{
+    --ardoise-900:#121316; --ardoise-800:#1c1e23; --ardoise-700:#2a2d34; --ardoise-600:#3d4148;
+    --ardoise-500:#4b5058; --ardoise-400:#5b6068; --ardoise-300:#8a9099;
+    --laiton-700:#6e5429; --laiton-300:#d4b483; --laiton-200:#e3cba4;
+    --lin-50:#fbf9f5; --lin-100:#f5f1e9; --lin-200:#e7e0d3; --lin-300:#d5cab6;
+    --bordeaux-700:#9b2226; --bordeaux-800:#83191d;
+    --ok:#2f6b46; --ok-bg:#e6f0e9; --ko:#9b2226; --ko-bg:#f6e6e5;
+    --serif: "Fraunces", Georgia, "Times New Roman", serif;
+    --sans: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--lin-50);color:var(--ardoise-900);font:16px/1.65 var(--sans);}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+  header.top{background:var(--ardoise-900);color:#fff;padding:44px 0 40px;border-bottom:4px solid var(--laiton-300)}
+  header.top h1{font:600 clamp(1.75rem,1.2rem+2vw,2.6rem)/1.2 var(--serif);margin:0 0 10px;letter-spacing:-.01em}
+  header.top p{margin:0;color:#cfd3da;max-width:62ch;font-size:1.0625rem}
+  .kicker{font:600 .75rem/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--laiton-300);margin-bottom:14px}
+  .verdict{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px}
+  .chip{display:inline-flex;align-items:center;gap:7px;border-radius:999px;padding:7px 14px;font:600 .875rem/1 var(--sans)}
+  .chip--ok{background:var(--ok-bg);color:var(--ok);border:1px solid #b9d6c4}
+  .chip--ko{background:var(--ko-bg);color:var(--ko);border:1px solid #e6b9b8}
+  .chip--n{background:var(--ardoise-800);color:#e7e0d3;border:1px solid #3a3f47}
+  h2{font:600 clamp(1.35rem,1.1rem+1vw,1.85rem)/1.25 var(--serif);margin:56px 0 6px;letter-spacing:-.01em}
+  h3{font:600 1.125rem/1.35 var(--sans);margin:0 0 10px}
+  .lede{color:var(--ardoise-500);max-width:70ch;margin:0 0 26px;font-size:1rem}
+  .grid{display:grid;gap:20px}
+  .g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+  .card{background:#fff;border:1px solid var(--lin-200);border-radius:14px;padding:22px}
+  .card--screen{display:flex;flex-direction:column;gap:14px}
+  .card h3 a{color:var(--ardoise-900);text-decoration:none;border-bottom:2px solid var(--laiton-300)}
+  .card h3 a:hover{border-color:var(--bordeaux-700)}
+  .path{font:500 .8125rem/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--ardoise-400);word-break:break-all}
+  .links{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto;padding-top:6px}
+  .btn{display:inline-flex;align-items:center;gap:7px;border-radius:999px;padding:10px 16px;font:600 .875rem/1 var(--sans);text-decoration:none;border:1px solid}
+  .btn--before{background:var(--ko-bg);color:var(--ko);border-color:#e6b9b8}
+  .btn--after{background:var(--ok-bg);color:var(--ok);border-color:#b9d6c4}
+  .btn--gh{background:#fff;color:var(--ardoise-900);border-color:var(--lin-300)}
+  table{width:100%;border-collapse:collapse;font-size:.9375rem;background:#fff;border:1px solid var(--lin-200);border-radius:14px;overflow:hidden}
+  th,td{text-align:left;padding:13px 15px;border-bottom:1px solid var(--lin-200);vertical-align:top}
+  thead th{background:var(--lin-100);font:600 .8125rem/1.4 var(--sans);letter-spacing:.04em;text-transform:uppercase;color:var(--ardoise-600)}
+  tbody tr:last-child td{border-bottom:0}
+  code{font:500 .8125em/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--lin-100);padding:2px 6px;border-radius:5px;color:var(--laiton-700)}
+  .id{font:600 .8125rem/1 ui-monospace,Menlo,monospace;color:var(--bordeaux-700);white-space:nowrap}
+  .before-t{color:var(--ko)} .after-t{color:var(--ok)} .after-t b{font-weight:600}
+  .metric{font:600 1.0625rem/1 var(--sans)}
+  .metric small{display:block;font:400 .75rem/1.4 var(--sans);color:var(--ardoise-400);margin-top:5px;letter-spacing:.02em}
+  .mgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:0 0 10px}
+  .mbox{background:#fff;border:1px solid var(--lin-200);border-radius:12px;padding:16px}
+  .mbox .metric{color:var(--ardoise-900)}
+  .mbox .metric--ok{color:var(--ok)} .mbox .metric--ko{color:var(--ko)}
+  .rule{background:var(--ardoise-900);color:#e7e0d3;border-radius:14px;padding:26px 28px;margin:30px 0}
+  .rule h3{color:var(--laiton-300);font-size:1rem;letter-spacing:.02em}
+  .rule ol{margin:0;padding-left:20px} .rule li{margin:9px 0}
+  .rule code{background:rgba(255,255,255,.1);color:#ffd9a8}
+  .note{background:#fff;border:1px solid var(--lin-200);border-left:4px solid var(--laiton-300);border-radius:10px;padding:16px 20px;margin:22px 0;font-size:.9375rem;color:var(--ardoise-600)}
+  footer.bot{background:var(--ardoise-900);color:#cfd3da;margin-top:70px;padding:36px 0;font-size:.875rem}
+  footer.bot a{color:var(--laiton-300)}
+  .muted{color:var(--ardoise-400);font-size:.875rem}
+  .shots{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+  .shots figure{margin:0}
+  .shots img{width:100%;display:block;border-radius:8px;border:1px solid var(--lin-200);background:#fff}
+  .shots figcaption{font:600 .6875rem/1 inherit;letter-spacing:.1em;text-transform:uppercase;margin-top:6px}
+  .shots figure:first-child figcaption{color:var(--ko)}
+  .shots figure:last-child figcaption{color:var(--ok)}
+  .foot-nav{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="kicker">Maquettes de correction · Espace client Maison Annois</div>
+    <h1>Les 8 corrections P0, avant / après</h1>
+    <p>Maquettes construites sur le <b>DOM réel et authentifié</b> de <code style="background:rgba(255,255,255,.12);color:#ffd9a8">maisonannois.sytes.net/account/</code>,
+       avec la feuille de style de production non modifiée. Chaque écran « après » n'est que l'écran « avant » plus les corrections&nbsp;:
+       rien n'a été redessiné, rien n'a été inventé.</p>
+    <div class="verdict">
+      <span class="chip chip--ok">✓ Un seul <code style="background:none;color:inherit">&lt;main&gt;</code></span>
+      <span class="chip chip--ok">✓ 0 texte sous 14 px</span>
+      <span class="chip chip--ok">✓ Confort de lecture sur mobile</span>
+      <span class="chip chip--ok">✓ Barre 87 → 61 px</span>
+      <span class="chip chip--n">4 règles axe → 1</span>
+      <span class="chip chip--n">Storefront inchangé</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <h2>1 · Les écrans</h2>
+  <p class="lede">Quatre écrans de l'espace client, capturés en production puis corrigés. Chaque page s'ouvre sur le vrai site, avec le vrai CSS&nbsp;;
+     la barre sombre en haut est le chrome de la maquette (hors périmètre).</p>
+
+  <div class="grid g2">
+
+    <article class="card card--screen">
+      <h3><a href="screens/01-overview.before.html">01 · Vue d'ensemble</a></h3>
+      <p class="path">/account</p>
+      <p class="muted">Le double <code>&lt;main&gt;</code>, le badge « Solde 53.26 € dû », le bloc « Prochaine étape », la barre de bas de page qui mange le titre.</p>
+      <div class="mgrid">
+        <div class="mbox"><div class="metric metric--ko">2</div><small>&lt;main&gt; avant → <b>1</b> après</small></div>
+        <div class="mbox"><div class="metric metric--ko">15</div><small>textes &lt;14 px avant → <b>0</b></small></div>
+      </div>
+      <div class="shots">
+        <figure><img src="../shots/before-01-overview-desktop.png" alt="Capture de production, écran 01-overview" loading="lazy"><figcaption>Avant</figcaption></figure>
+        <figure><img src="../shots/after-01-overview-desktop.png" alt="Capture corrigée, écran 01-overview" loading="lazy"><figcaption>Après</figcaption></figure>
+      </div>
+      <div class="links">
+        <a class="btn btn--before" href="screens/01-overview.before.html">Avant</a>
+        <a class="btn btn--after" href="screens/01-overview.after.html">Après</a>
+        <a class="btn btn--gh" href="diff/01-overview.diff">Diff</a>
+      </div>
+    </article>
+
+    <article class="card card--screen">
+      <h3><a href="screens/02-order-detail.before.html">02 · Détail de commande</a></h3>
+      <p class="path">/account/orders/CMD-2452</p>
+      <p class="muted">« Agir sur cette commande » : trois paragraphes qui n'agissent pas. Ni bouton, ni lien <code>tel:</code>, ni lien vers les CGV.</p>
+      <div class="mgrid">
+        <div class="mbox"><div class="metric metric--ko">37</div><small>textes &lt;14 px avant → <b>0</b></small></div>
+        <div class="mbox"><div class="metric metric--ko">0</div><small>action cliquable avant → <b>3</b></small></div>
+      </div>
+      <div class="shots">
+        <figure><img src="../shots/before-02-order-detail-desktop.png" alt="Capture de production, écran 02-order-detail" loading="lazy"><figcaption>Avant</figcaption></figure>
+        <figure><img src="../shots/after-02-order-detail-desktop.png" alt="Capture corrigée, écran 02-order-detail" loading="lazy"><figcaption>Après</figcaption></figure>
+      </div>
+      <div class="links">
+        <a class="btn btn--before" href="screens/02-order-detail.before.html">Avant</a>
+        <a class="btn btn--after" href="screens/02-order-detail.after.html">Après</a>
+        <a class="btn btn--gh" href="diff/02-order-detail.diff">Diff</a>
+      </div>
+    </article>
+
+    <article class="card card--screen">
+      <h3><a href="screens/03-deposits.before.html">03 · Arrhes &amp; consignes</a></h3>
+      <p class="path">/account/deposits</p>
+      <p class="muted">La page s'ouvre sur du droit (« article L. 214-1 ») et une carte intitulée « Dû ». Le solde est une action, pas une dette.</p>
+      <div class="mgrid">
+        <div class="mbox"><div class="metric metric--ko">14</div><small>textes &lt;14 px avant → <b>0</b></small></div>
+        <div class="mbox"><div class="metric metric--ko">Dû</div><small>libellé avant → <b>À régler au retrait</b></small></div>
+      </div>
+      <div class="shots">
+        <figure><img src="../shots/before-03-deposits-desktop.png" alt="Capture de production, écran 03-deposits" loading="lazy"><figcaption>Avant</figcaption></figure>
+        <figure><img src="../shots/after-03-deposits-desktop.png" alt="Capture corrigée, écran 03-deposits" loading="lazy"><figcaption>Après</figcaption></figure>
+      </div>
+      <div class="links">
+        <a class="btn btn--before" href="screens/03-deposits.before.html">Avant</a>
+        <a class="btn btn--after" href="screens/03-deposits.after.html">Après</a>
+        <a class="btn btn--gh" href="diff/03-deposits.diff">Diff</a>
+      </div>
+    </article>
+
+    <article class="card card--screen">
+      <h3><a href="screens/04-nav.before.html">04 · Navigation du compte</a></h3>
+      <p class="path">/account (colonne de navigation)</p>
+      <p class="muted">17 entrées dans une bande de 1 945 px pour 390 px de large : 3 visibles sur 17, sans ombre de défilement.</p>
+      <div class="mgrid">
+        <div class="mbox"><div class="metric metric--ko">1 945</div><small>px de bande → <b>5 groupes</b></small></div>
+        <div class="mbox"><div class="metric metric--ko">3 / 17</div><small>entrées visibles avant</small></div>
+      </div>
+      <div class="shots">
+        <figure><img src="../shots/before-04-nav-desktop.png" alt="Capture de production, écran 04-nav" loading="lazy"><figcaption>Avant</figcaption></figure>
+        <figure><img src="../shots/after-04-nav-desktop.png" alt="Capture corrigée, écran 04-nav" loading="lazy"><figcaption>Après</figcaption></figure>
+      </div>
+      <div class="links">
+        <a class="btn btn--before" href="screens/04-nav.before.html">Avant</a>
+        <a class="btn btn--after" href="screens/04-nav.after.html">Après</a>
+        <a class="btn btn--gh" href="diff/04-nav.diff">Diff</a>
+      </div>
+    </article>
+
+  </div>
+
+  <h2>2 · Les 8 corrections P0, et leur preuve</h2>
+  <p class="lede">Chaque ligne est vérifiable : la mesure « avant » vient de la capture de production, la mesure « après » de la maquette corrigée,
+     re-mesurée au navigateur (Chromium, 390 px et 1440 px).</p>
+
+  <table>
+    <thead>
+      <tr><th style="width:52px">Réf.</th><th>Défaut constaté</th><th>Correction</th><th style="width:30%">Preuve mesurée</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="id">S-01</td>
+        <td>Deux éléments <code>&lt;main&gt;</code> imbriqués, tous deux porteurs de <code>id="contenu"</code>. L'identifiant est dupliqué&nbsp;; le point de saut clavier et les lecteurs d'écran reçoivent deux cibles.</td>
+        <td>Le <code>&lt;main&gt;</code> intérieur devient un <code>&lt;div&gt;</code>. Un seul <code>&lt;main&gt;</code>, un seul <code>#contenu</code>.</td>
+        <td><span class="before-t">2 <code>&lt;main&gt;</code>, <code>#contenu</code> en double</span><br><span class="after-t">→ <b>1</b> <code>&lt;main&gt;</code>, 0 doublon</span></td>
+      </tr>
+      <tr>
+        <td class="id">S-04</td>
+        <td>Le contrôle « Confort de lecture » existe sur le site, mais son enveloppe porte <code>hidden sm:block</code>&nbsp;: sous 640 px il est <code>display:none</code> (rectangle 0×0). La moitié de la clientèle ne l'a jamais vu.</td>
+        <td>Enveloppe repassée en <code>block</code>. Le mode confort pilote réellement l'échelle typographique via <code>data-comfort</code>.</td>
+        <td><span class="before-t">bouton 0×0 à 390 px</span><br><span class="after-t">→ <b>visible, 107×50 px</b></span></td>
+      </tr>
+      <tr>
+        <td class="id">S-02</td>
+        <td>La barre fixe de bas de page occupe 87 px sur 844 px (10,3&nbsp;% de l'écran) et recouvre le titre de section au chargement. L'utilitaire <code>pb-[var(--bar-clearance)]</code> existe dans le CSS de production mais n'est pas appliqué au conteneur.</td>
+        <td>Barre remplacée par une barre de contexte ≤ 64 px, et <code>padding-bottom</code> calculé sur <code>--context-bar-height</code>.</td>
+        <td><span class="before-t">87 px, 6 éléments recouverts</span><br><span class="after-t">→ <b>61 px</b>, 0 contenu bloqué en bas de page</span></td>
+      </tr>
+      <tr>
+        <td class="id">S-05</td>
+        <td>Navigation en 17 entrées à plat&nbsp;: 1 945 px de bande dans 390 px, 3 entrées visibles, aucun indice de défilement. Sur desktop, 17 liens sans hiérarchie.</td>
+        <td>Tiroir groupé en 5 sections sur mobile, colonne groupée sur desktop — un seul arbre de markup, deux présentations.</td>
+        <td><span class="before-t">3 entrées visibles sur 17</span><br><span class="after-t">→ <b>18 liens, 5 groupes</b>, tous atteignables</span></td>
+      </tr>
+      <tr>
+        <td class="id">S-08</td>
+        <td>Plancher typographique à 12,5 px : <code>--text-caption</code> porte les références de commande, le badge de solde, les mentions de pied de page et les identifiants internes.</td>
+        <td>Plancher à 14 px <b>dans le périmètre du compte uniquement</b> : <code>--text-caption</code>, <code>--text-overline</code>, <code>--text-small</code>, <code>--text-body</code>.</td>
+        <td><span class="before-t">15 / 37 / 14 / 15 textes &lt;14 px</span><br><span class="after-t">→ <b>0</b> sur les quatre écrans</span></td>
+      </tr>
+      <tr>
+        <td class="id">S-09</td>
+        <td>Le gris <code>text-ardoise-300</code> (#8a9099) sur les séparateurs « · » : 3,22:1 sur blanc, 2,42:1 sur la crème des encarts.</td>
+        <td>Pas de modification du jeton&nbsp;: <b>changement de classe</b> vers <code>text-ardoise-400</code> (#5b6068), déjà présent dans la palette.</td>
+        <td><span class="before-t">2,42:1 — échec AA</span><br><span class="after-t">→ <b>4,77:1</b> crème / 6,33:1 blanc — AA</span></td>
+      </tr>
+      <tr>
+        <td class="id">C-02</td>
+        <td>« Appelez la boutique » sans <code>tel:</code>, « la politique publiée » sans lien&nbsp;: les blocages sont de la prose morte. Aucun des trois blocs d'action n'est cliquable.</td>
+        <td>Trois cartes d'action avec vrai <code>tel:0139471212</code>, vrai lien <code>/cgv#annulation</code>, vrai lien vers les réclamations.</td>
+        <td><span class="before-t">0 action cliquable</span><br><span class="after-t">→ <b>3 cartes d'action</b></span></td>
+      </tr>
+      <tr>
+        <td class="id">C-01</td>
+        <td>Les identifiants de spécification sont visibles du client&nbsp;: « — R20 », « — R6 / R7 / R8 / R9 », « — F-01 / F-05 », « — F-10 / R18 / R19 »…</td>
+        <td>Supprimés de l'affichage, conservés en <code>data-spec</code> sur le paragraphe pour la traçabilité qualité.</td>
+        <td><span class="before-t">2 identifiants visibles sur CMD-2452</span><br><span class="after-t">→ <b>0</b>, conservés en attribut</span></td>
+      </tr>
+      <tr>
+        <td class="id">O-01</td>
+        <td>Le badge affiche « SOLDE 53.26 € DÛ » — point décimal anglo-saxon et tournure qui transforme un solde à régler en dette.</td>
+        <td>« Solde à régler · 53,26&nbsp;€ », virgule française, chiffres tabulaires, plus de « dû ».</td>
+        <td><span class="before-t">Solde 53.26 € dû</span><br><span class="after-t">→ <b>Solde à régler · 53,26&nbsp;€</b></span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>3 · Mesures avant / après</h2>
+  <p class="lede">Relevés automatiques (axe-core 4.10.2 + mesures DOM) sur les mêmes fichiers, aux mêmes tailles de fenêtre.</p>
+
+  <div class="mgrid">
+    <div class="mbox"><div class="metric metric--ko">4</div><small>règles axe violées avant</small></div>
+    <div class="mbox"><div class="metric metric--ok">1</div><small>règles axe violées après</small></div>
+    <div class="mbox"><div class="metric metric--ko">2</div><small>éléments <code>&lt;main&gt;</code> avant</small></div>
+    <div class="mbox"><div class="metric metric--ok">1</div><small>après</small></div>
+    <div class="mbox"><div class="metric metric--ko">81</div><small>textes &lt;14 px (4 écrans)</small></div>
+    <div class="mbox"><div class="metric metric--ok">0</div><small>après</small></div>
+    <div class="mbox"><div class="metric metric--ko">87 px</div><small>barre de bas de page</small></div>
+    <div class="mbox"><div class="metric metric--ok">61 px</div><small>après</small></div>
+  </div>
+
+  <div class="note">
+    <b>La seule règle axe qui subsiste est <code>region</code> (3 nœuds)</b> — le lien d'évitement, le bandeau d'annonce et le lien téléphone,
+    tous trois dans l'en-tête du storefront. Les corriger reviendrait à modifier l'apparence du site public, ce que la spécification interdit&nbsp;;
+    ils restent donc dans la file P1 et sont documentés dans le rapport d'audit.
+  </div>
+
+  <div class="rule">
+    <h3>La règle de confinement — pourquoi le storefront ne bouge pas</h3>
+    <ol>
+      <li>Le jeton partagé <code>--text-caption</code> vaut <b>12,5 px</b> et apparaît 50 à 80 fois par écran. Le modifier cascaderait sur tout le site&nbsp;: on le <b>neutralise dans le périmètre du compte</b> seulement, via <code>[data-scope="account"]</code>.</li>
+      <li>Le gris <code>--color-ardoise-300</code> (#8a9099) est utilisé partout. On ne le redéfinit pas&nbsp;: on <b>change de classe</b> à l'intérieur du compte (<code>text-ardoise-300</code> → <code>text-ardoise-400</code>).</li>
+      <li>La palette conserve ses valeurs exactes&nbsp;: <code>ardoise-400</code> #5b6068, <code>ocre-700</code> #7a4d0d, <code>laiton-700</code> #6e5429, <code>lin-200</code> #e7e0d3. <b>Aucun nouveau jeton de couleur</b> n'est introduit.</li>
+      <li>Le mot « comfort » du laiton n'était pas un problème de contraste (6,74:1, conforme) mais <b>un problème de taille</b> (11 px)&nbsp;: il est traité par le plancher typographique, pas par une couleur.</li>
+      <li>La feuille <code>tokens/account-scope.css</code> est <b>non stratifiée</b> : elle l'emporte sur les utilitaires Tailwind stratifiées sans jamais les modifier.</li>
+    </ol>
+  </div>
+
+  <h2>4 · Comment appliquer les corrections</h2>
+  <p class="lede">Le lot est un drop-in&nbsp;: une feuille CSS, un attribut, et quelques fragments de DOM.</p>
+
+  <table>
+    <thead><tr><th style="width:44%">Fichier</th><th>Ce qu'il contient</th></tr></thead>
+    <tbody>
+      <tr><td><code>tokens/account-scope.css</code></td><td>La correction complète des 8 P0, cloisonnée dans <code>[data-scope="account"]</code>. À charger <b>après</b> <code>production.css</code>.</td></tr>
+      <tr><td><code>screens/*.before.html</code></td><td>Capture réelle du DOM de production (scripts retirés), pour référence et comparaison.</td></tr>
+      <tr><td><code>screens/*.after.html</code></td><td>Les mêmes captures corrigées. C'est la maquette à valider.</td></tr>
+      <tr><td><code>diff/*.diff</code></td><td>Document de patch par écran : chaque correction est le fragment réel de production remplacé par son fragment corrigé (le DOM étant minifié sur une ligne, un diff unifié serait illisible).</td></tr>
+      <tr><td><code>components/index.html</code></td><td>Les composants corrigés isolés, à copier dans le design system.</td></tr>
+      <tr><td><code>README.md</code></td><td>La table de correspondance constat → correction → preuve, et la procédure d'intégration.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>5 · Ce que ces maquettes ne corrigent pas</h2>
+  <p class="lede">Par honnêteté méthodologique, et parce que le rapport les classe en P1 ou P2.</p>
+  <div class="grid g2">
+    <div class="card">
+      <h3>Restent ouverts</h3>
+      <ul style="margin:0;padding-left:20px;color:var(--ardoise-600)">
+        <li>Règle axe <code>region</code> : 3 nœuds dans l'en-tête du storefront.</li>
+        <li>Filtres, recherche et tri absents de <code>/account/orders</code> (0 champ).</li>
+        <li>Absence de « Composer une commande » / « Acheter à nouveau ».</li>
+        <li>Absence de passe de retrait (QR) dans le nouvel espace.</li>
+        <li>Prose d'introduction de 3 à 5 lignes sur chaque page du compte.</li>
+        <li>Bloc médiateur incomplet (coordonnées postales et électroniques, L. 616-1).</li>
+        <li>Formulaire de réclamation sans envoi de photo (F-11b).</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Volontairement hors périmètre</h3>
+      <ul style="margin:0;padding-left:20px;color:var(--ardoise-600)">
+        <li>Le retrait en 14 jours et la réclamation : <b>déjà conformes</b> (CMD-9001, CMD-9003) — aucune maquette, aucune modification.</li>
+        <li>La traçabilité (lots PR-2610-910, origine CE) : conservée à l'identique.</li>
+        <li>Le fil « La suite » (Reçue → Retirée) : conservé tel quel.</li>
+        <li>Le suivi de commande sans compte : conservé tel quel.</li>
+        <li>Le storefront, ses jetons et son apparence : <b>inchangés, au pixel près</b>.</li>
+      </ul>
+    </div>
+  </div>
+
+</main>
+
+<footer class="bot">
+  <div class="wrap">
+    <p><b>Maison Annois · Espace client — maquettes de correction P0.</b>
+       DOM de production capturé le 28 nov. 2026 sur <code style="background:rgba(255,255,255,.1);color:#ffd9a8">maisonannois.sytes.net/account/</code>
+       (compte de démonstration). Mesures : Chromium 156, axe-core 4.10.2, 390 × 844 et 1440 × 1000.</p>
+    <p class="foot-nav">
+      <a class="btn btn--gh" href="screens/01-overview.after.html">Écran 01 après</a>
+      <a class="btn btn--gh" href="screens/02-order-detail.after.html">Écran 02 après</a>
+      <a class="btn btn--gh" href="screens/03-deposits.after.html">Écran 03 après</a>
+      <a class="btn btn--gh" href="screens/04-nav.after.html">Écran 04 après</a>
+      <a class="btn btn--gh" href="components/index.html">Composants</a>
+      <a class="btn btn--gh" href="README.md">README</a>
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maison Annois — Composants corrigés · Espace client</title>
+<link rel="stylesheet" href="../../assets/production.css">
+<link rel="stylesheet" href="../tokens/account-scope.css">
+<style>
+  body{background:#fbf9f5;color:#121316;font:16px/1.65 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;margin:0}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px 80px}
+  header.top{background:#121316;color:#fff;padding:40px 0 34px;border-bottom:4px solid #d4b483;margin-bottom:12px}
+  header.top h1{font:600 clamp(1.6rem,1.2rem+1.8vw,2.4rem)/1.2 "Fraunces",Georgia,serif;margin:0 0 8px}
+  header.top p{margin:0;color:#cfd3da;max-width:64ch}
+  .kicker{font:600 .75rem/1 inherit;letter-spacing:.14em;text-transform:uppercase;color:#d4b483;margin-bottom:12px}
+  h2{font:600 1.5rem/1.25 "Fraunces",Georgia,serif;margin:52px 0 4px}
+  .lede{color:#4b5058;max-width:70ch;margin:0 0 22px}
+  .cmp{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;align-items:start}
+  .panel{background:#fff;border:1px solid #e7e0d3;border-radius:14px;overflow:hidden}
+  .panel__head{padding:11px 16px;font:600 .75rem/1 inherit;letter-spacing:.1em;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+  .panel--before .panel__head{background:#f6e6e5;color:#9b2226}
+  .panel--after  .panel__head{background:#e6f0e9;color:#2f6b46}
+  .panel__body{padding:18px 16px}
+  .caption{font-size:.8125rem;color:#4b5058;margin:0 0 10px}
+  .ref{font:500 .75rem/1.4 ui-monospace,Menlo,monospace;color:#8a9099}
+  .swatch{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+  .sw{flex:1 1 150px;border:1px solid #e7e0d3;border-radius:10px;padding:10px;font-size:.8125rem}
+  .sw b{display:block;font:600 .6875rem/1 inherit;letter-spacing:.08em;text-transform:uppercase;color:#8a9099;margin-bottom:6px}
+  .sw span{font:600 .9375rem/1.3 inherit;display:block}
+  .sw small{display:block;color:#4b5058;font-size:.75rem;margin-top:4px}
+  .kbd{font:600 .75rem/1 inherit;border:1px solid #d5cab6;border-bottom-width:2px;border-radius:6px;padding:5px 8px;background:#f5f1e9}
+  .scale{display:grid;gap:8px}
+  .scale div{border-bottom:1px dashed #e7e0d3;padding-bottom:7px}
+  .scale b{font:600 .75rem/1 inherit;color:#8a9099;letter-spacing:.05em;text-transform:uppercase}
+  a.back{display:inline-block;margin:26px 0 0;color:#6e5429;font-weight:600}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="kicker">Composants corrigés · drop-in</div>
+    <h1>Les huit pièces, isolées</h1>
+    <p>Chaque composant est montré dans son état de production et dans son état corrigé, avec le même code source.
+       La feuille <code>tokens/account-scope.css</code> est chargée : ce sont ces règles qui produisent la différence.</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <h2>1 · Barre de contexte</h2>
+  <p class="lede">Remplace la barre fixe de 87 px. Elle ne propose que des actions utiles et tient en 61 px.</p>
+  <div class="cmp">
+    <div class="panel panel--before">
+      <div class="panel__head">Avant — 87 px, recouvre le titre</div>
+      <div class="panel__body">
+        <div style="position:relative;height:120px;background:#f5f1e9;border-radius:8px;overflow:hidden">
+          <div style="padding:12px;font:600 14px/1.4 inherit;color:#121316">Commande CMD-2452</div>
+          <div style="padding:0 12px;font-size:13px;color:#4b5058">Confirmée · sam. 31 oct. · 10h00</div>
+          <div style="position:absolute;left:0;right:0;bottom:0;background:#fbf9f5;border-top:1px solid #d5cab6;padding:10px 12px;display:flex;gap:12px;font-size:13px">
+            <span>☎ 01 39 47 12 12</span><span>Panier</span>
+          </div>
+        </div>
+        <p class="caption" style="margin-top:12px">Le texte passe sous la barre : 10,3 % de l'écran perdu, et rien ne permet de dégager le contenu au chargement.</p>
+      </div>
+    </div>
+    <div class="panel panel--after">
+      <div class="panel__head">Après — 61 px, deux actions</div>
+      <div class="panel__body">
+        <div style="position:relative;height:120px;background:#f5f1e9;border-radius:8px;overflow:hidden">
+          <div style="padding:12px;font:600 14px/1.4 inherit;color:#121316">Commande CMD-2452</div>
+          <div style="padding:0 12px;font-size:13px;color:#4b5058">Confirmée · sam. 31 oct. · 10h00</div>
+          <div class="account-context-bar" style="position:absolute;left:0;right:0;bottom:0">
+            <a href="tel:0139471212" class="flex min-h-11 flex-1 items-center justify-center gap-2 rounded-[var(--radius-pill)] border border-ardoise-900/25 bg-white px-3 text-small font-semibold text-ardoise-900">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.58 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .57 3.6 1 1 0 0 1-.25 1z"/></svg>
+              <span>Appeler</span>
+            </a>
+            <a href="#" class="flex min-h-11 flex-1 items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-ardoise-900 px-3 text-small font-semibold text-lin-50">
+              <span class="tabular-nums">53,26&nbsp;€</span><span class="font-normal">à régler</span>
+            </a>
+          </div>
+        </div>
+        <p class="caption" style="margin-top:12px">Le conteneur réserve <code>--context-bar-height</code> en padding-bottom&nbsp;: au bas de la page, rien ne reste prisonnier de la barre.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>2 · Navigation groupée</h2>
+  <p class="lede">Un seul arbre de markup, deux présentations&nbsp;: tiroir sur mobile, colonne groupée sur desktop.</p>
+  <div class="cmp">
+    <div class="panel panel--before">
+      <div class="panel__head">Avant — 17 entrées à plat</div>
+      <div class="panel__body">
+        <div style="overflow:hidden;border-radius:8px;border:1px solid #e7e0d3">
+          <ul class="-mx-[var(--gutter)] flex gap-1 overflow-x-auto px-[var(--gutter)] pb-2" style="scrollbar-width:none">
+            <li class="shrink-0"><a class="block whitespace-nowrap rounded-[var(--radius-md)] px-3 py-2 text-small bg-ardoise-900 font-semibold text-lin-50" href="#">Vue d'ensemble</a></li>
+            <li class="shrink-0"><a class="block whitespace-nowrap rounded-[var(--radius-md)] px-3 py-2 text-small text-ardoise-700" href="#">Commandes</a></li>
+            <li class="shrink-0"><a class="block whitespace-nowrap rounded-[var(--radius-md)] px-3 py-2 text-small text-ardoise-700" href="#">Abonnements</a></li>
+            <li class="shrink-0"><a class="block whitespace-nowrap rounded-[var(--radius-md)] px-3 py-2 text-small text-ardoise-700" href="#">Factures</a></li>
+            <li class="shrink-0"><a class="block whitespace-nowrap rounded-[var(--radius-md)] px-3 py-2 text-small text-ardoise-700" href="#">Paiements</a></li>
+          </ul>
+        </div>
+        <p class="caption" style="margin-top:12px">1 945 px de bande dans 390 px&nbsp;: <b>3 entrées visibles sur 17</b>, sans ombre de défilement, sans groupement.</p>
+      </div>
+    </div>
+    <div class="panel panel--after">
+      <div class="panel__head">Après — 5 groupes</div>
+      <div class="panel__body">
+        <ul class="account-nav-list" style="gap:.9rem">
+          <li><p class="account-nav-group-title">Commander</p><ul>
+            <li><a class="account-nav-link" href="#" aria-current="page">Vue d'ensemble</a></li>
+            <li><a class="account-nav-link" href="#">Commandes</a></li>
+          </ul></li>
+          <li><p class="account-nav-group-title">Argent</p><ul>
+            <li><a class="account-nav-link" href="#">Factures</a></li>
+            <li><a class="account-nav-link" href="#">Arrhes &amp; consignes</a></li>
+          </ul></li>
+          <li><p class="account-nav-group-title">Vos demandes</p><ul>
+            <li><a class="account-nav-link" href="#">Réclamations</a></li>
+          </ul></li>
+        </ul>
+        <p class="caption" style="margin-top:12px">Sur mobile, un bouton « Menu du compte » ouvre ce même contenu en tiroir plein écran, fermable au clavier.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>3 · Carte d'action</h2>
+  <p class="lede">Ce qui remplace la prose morte : un titre, une phrase, et des boutons qui font quelque chose.</p>
+  <div class="cmp">
+    <div class="panel panel--before">
+      <div class="panel__head">Avant — « Agir sur cette commande »</div>
+      <div class="panel__body">
+        <p style="font-size:.9375rem;color:#4b5058;margin:0 0 10px"><b style="color:#121316">Modifier le créneau</b></p>
+        <p style="font-size:.8125rem;color:#4b5058;margin:0 0 12px">La coupure est passée. Appelez la boutique pour demander un changement de créneau.</p>
+        <p style="font-size:.9375rem;color:#4b5058;margin:0 0 10px"><b style="color:#121316">Annulation</b></p>
+        <p style="font-size:.8125rem;color:#4b5058;margin:0">Le délai d'annulation libre est passé : la politique publiée s'applique. Des arrhes peuvent être retenues.</p>
+      </div>
+    </div>
+    <div class="panel panel--after">
+      <div class="panel__head">Après — la même information, cliquable</div>
+      <div class="panel__body">
+        <div class="rounded-[var(--radius-md)] border border-lin-200 bg-lin-50 p-4">
+          <p class="text-small font-semibold text-ardoise-900">Modifier le créneau</p>
+          <p class="mt-1 text-caption leading-relaxed text-ardoise-600">La coupure est passée (24 h avant le créneau). Nous modifions encore si la préparation n'a pas commencé.</p>
+          <div class="mt-3 flex flex-wrap gap-2">
+            <a href="tel:0139471212" class="inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-pill)] border border-ardoise-900/25 bg-white px-3.5 text-small font-semibold text-ardoise-900">Appeler la boutique</a>
+            <a href="#" class="inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-pill)] border border-ardoise-900/25 bg-white px-3.5 text-small font-semibold text-ardoise-900">Changer de créneau</a>
+          </div>
+        </div>
+        <p class="caption" style="margin-top:12px">Le mot « appelez » devient un <code>tel:</code>. Le mot « politique publiée » devient un lien vers <code>/cgv#annulation</code>.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>4 · Plancher typographique</h2>
+  <p class="lede">Le même texte, avant et après, à l'intérieur du périmètre du compte.</p>
+  <div class="cmp">
+    <div class="panel panel--before">
+      <div class="panel__head">Avant — 12,5 px</div>
+      <div class="panel__body">
+        <div class="scale">
+          <div><b>text-caption · 12,5 px</b><div style="font-size:12.5px;color:#8a9099">Commande CMD-2452 · 2 article(s) · 64,87 € TTC</div></div>
+          <div><b>text-overline · 12 px</b><div style="font-size:12px;color:#8a9099;letter-spacing:.08em;text-transform:uppercase">Prochaine étape</div></div>
+          <div><b>text-small · 14 px</b><div style="font-size:14px;color:#4b5058">Retrait en boutique de Sannois</div></div>
+        </div>
+        <p class="caption" style="margin-top:14px">Le badge de solde, les références de commande et les mentions légales passaient tous par <code>text-caption</code>.</p>
+      </div>
+    </div>
+    <div class="panel panel--after">
+      <div class="panel__head">Après — 14 px minimum</div>
+      <div class="panel__body">
+        <div data-scope="account" class="scale">
+          <div><b>text-caption · 14 px</b><div style="font-size:12.5px;color:#8a9099" class="text-caption">Commande CMD-2452 · 2 article(s) · 64,87 € TTC</div></div>
+          <div><b>text-overline · 14 px</b><div style="font-size:12px;color:#8a9099;letter-spacing:.08em;text-transform:uppercase" class="overline">Prochaine étape</div></div>
+          <div><b>text-small · 15 px</b><div style="font-size:14px;color:#4b5058" class="text-small">Retrait en boutique de Sannois</div></div>
+        </div>
+        <p class="caption" style="margin-top:14px">La règle vit dans <code>[data-scope="account"]</code>&nbsp;: <code>--text-caption: .875rem</code>. Le storefront conserve 12,5 px.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>5 · Le solde, reformulé</h2>
+  <p class="lede">Un point décimal anglo-saxon et un mot qui transforme une action en dette.</p>
+  <div class="cmp">
+    <div class="panel panel--before">
+      <div class="panel__head">Avant</div>
+      <div class="panel__body">
+        <span class="inline-flex items-center gap-1.5 rounded-[var(--radius-pill)] border px-2.5 py-1 text-caption font-semibold uppercase leading-none tracking-[0.08em] bg-ocre-100 text-ocre-700 border-transparent">Solde 53.26 € dû</span>
+        <p class="caption" style="margin-top:14px">« dû » avec la virgule manquante et le point décimal.</p>
+      </div>
+    </div>
+    <div class="panel panel--after">
+      <div class="panel__head">Après</div>
+      <div class="panel__body">
+        <span class="inline-flex items-center gap-1.5 rounded-[var(--radius-pill)] border px-2.5 py-1 text-caption font-semibold uppercase leading-none tracking-[0.08em] bg-ocre-100 text-ocre-700 border-transparent">Solde à régler · 53,26&nbsp;€</span>
+        <p class="caption" style="margin-top:14px">La virgule française, les chiffres tabulaires, et un libellé qui dit ce qu'il faut faire&nbsp;: régler.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>6 · Contraste du texte secondaire</h2>
+  <p class="lede">Aucun jeton de couleur n'est modifié&nbsp;: on change de pas dans la palette existante.</p>
+  <div class="swatch">
+    <div class="sw"><b>Avant</b><span style="color:#8a9099">ardoise-300</span><small>#8a9099 — 3,22:1 sur blanc, 2,42:1 sur crème<br><b style="color:#9b2226">ÉCHEC AA</b></small></div>
+    <div class="sw" style="border-color:#b9d6c4;background:#e6f0e9"><b>Après</b><span style="color:#5b6068">ardoise-400</span><small>#5b6068 — 6,33:1 sur blanc, 4,77:1 sur crème<br><b style="color:#2f6b46">CONFORME AA</b></small></div>
+    <div class="sw"><b>Vérifiés conformes</b><span style="color:#4b5058">ardoise-500</span><small>8,12:1 — ocre-700 6,42:1 — laiton-700 6,74:1</small></div>
+  </div>
+
+  <h2>7 · Anneau de focus</h2>
+  <p class="lede">Le bouton « Panier, vide » héritait d'une couleur de contour proche du blanc sur fond crème&nbsp;: le focus était invisible.</p>
+  <div class="cmp">
+    <div class="panel panel--before">
+      <div class="panel__head">Avant — invisible</div>
+      <div class="panel__body">
+        <button class="inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-pill)] border border-lin-400 bg-white px-4 text-small text-ardoise-800 outline-none" style="outline-color:#fbf9f5">Panier, vide</button>
+        <p class="caption" style="margin-top:12px">Contour <code>#fbf9f5</code> sur fond crème&nbsp;: invisible.</p>
+      </div>
+    </div>
+    <div class="panel panel--after">
+      <div class="panel__head">Après — visible partout</div>
+      <div class="panel__body">
+        <button class="inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-pill)] border border-lin-400 bg-white px-4 text-small text-ardoise-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bordeaux-700" data-scope="account">Panier, vide</button>
+        <p class="caption" style="margin-top:12px">2 px bordeaux + halo blanc de 4 px&nbsp;: visible sur crème comme sur blanc.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>8 · Mention légale repliable</h2>
+  <p class="lede">La phrase simple d'abord, la référence juridique ensuite — et une seule fois.</p>
+  <div class="cmp">
+    <div class="panel panel--before">
+      <div class="panel__head">Avant — la loi d'abord</div>
+      <div class="panel__body">
+        <p style="font-size:.9375rem;color:#4b5058;margin:0">Le versement d'avance n'est pas une avance comme les autres : sa nature juridique — arrhes ou acompte — détermine les effets du contrat. article L. 214-1 du Code de la consommation.</p>
+      </div>
+    </div>
+    <div class="panel panel--after">
+      <div class="panel__head">Après — clair d'abord</div>
+      <div class="panel__body">
+        <p class="text-lead text-ardoise-700" style="margin:0 0 12px">Un acompte, ce n'est pas une avance comme les autres. Ce que vous récupérez dépend de qui annule — voici la règle appliquée à vos commandes.</p>
+        <details class="legal-disclosure">
+          <summary>Lire la règle juridique</summary>
+          <div class="legal-disclosure__body">
+            <p>Le versement d'avance n'est pas une avance comme les autres : sa nature juridique (arrhes ou acompte) décide de ce qui se passe en cas de renoncement (art. L. 214-1 C. conso.).</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+
+  <a class="back" href="../index.html">← Retour à l'index des maquettes</a>
+</div>
+</body>
+</html>
